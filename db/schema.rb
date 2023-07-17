@@ -10,9 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_17_080117) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_17_091126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "numbers", force: :cascade do |t|
+    t.integer "score"
+    t.integer "duration"
+    t.bigint "sports_id", null: false
+    t.bigint "players_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["players_id"], name: "index_numbers_on_players_id"
+    t.index ["sports_id"], name: "index_numbers_on_sports_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.integer "size"
+    t.integer "height"
+    t.bigint "sports_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sports_id"], name: "index_players_on_sports_id"
+  end
+
+  create_table "sports", force: :cascade do |t|
+    t.string "name"
+    t.string "teams"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_sports_on_user_id"
+  end
+
+  create_table "trainings", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.bigint "numbers_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["numbers_id"], name: "index_trainings_on_numbers_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_080117) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "numbers", "players", column: "players_id"
+  add_foreign_key "numbers", "sports", column: "sports_id"
+  add_foreign_key "players", "sports", column: "sports_id"
+  add_foreign_key "sports", "users"
+  add_foreign_key "trainings", "numbers", column: "numbers_id"
 end

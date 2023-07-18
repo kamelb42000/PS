@@ -10,8 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sports, only: [:destroy]
+  resources :sports
   resources :numbers
   resources :players, only: [:index, :new, :create]
 end
-

@@ -14,7 +14,7 @@ class SportsController < ApplicationController
     def create
       @sport = current_user.sports.build(sport_params)
       if @sport.save
-        redirect_to sport_path(@sport), notice: 'Sport created successfully.'
+        redirect_to sports_path, notice: 'Sport created successfully.'
       else
         render :new
       end

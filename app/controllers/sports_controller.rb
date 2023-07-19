@@ -3,9 +3,6 @@ class SportsController < ApplicationController
       @sports = current_user.sports
     end
 
-    def show
-      @sport = Sport.find(params[:id])
-    end
 
     def new
       @sport = Sport.new
@@ -20,6 +17,20 @@ class SportsController < ApplicationController
       end
     end
 
+    def destroy
+      @sport = Sport.find(params[:id])
+      if current_user == @sport.user
+        @sport.destroy
+        redirect_to sports_path, status: :see_other, flash: { alert: "Le dossier a été supprimé avec succès." }
+      else
+        render "Vous n'êtes pas autorisé à supprimer ce dossier.", status: :forbidden
+      end
+    end
+
+
+    def show
+      @sport = Sport.find(params[:id])
+    end
     private
 
     def sport_params

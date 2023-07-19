@@ -1,5 +1,4 @@
 class Player < ApplicationRecord
-  belongs_to :sport, class_name: 'Sport', foreign_key: 'sports_id'
+  belongs_to :sport  
   has_many :numbers
-
 end

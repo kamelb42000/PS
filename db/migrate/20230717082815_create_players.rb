@@ -4,8 +4,7 @@ class CreatePlayers < ActiveRecord::Migration[7.0]
       t.string :name
       t.integer :size
       t.integer :height
-      t.references :sports, null: false, foreign_key: true
-
+      t.references :sport, foreign_key: true  
       t.timestamps
     end
   end

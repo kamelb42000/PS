@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   end
 
   resources :numbers
-  resources :players, only: [:index, :new, :create]
+  resources :players, only: [ :new, :create]
 end

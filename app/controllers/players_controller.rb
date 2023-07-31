@@ -1,5 +1,4 @@
 class PlayersController < ApplicationController
-  class PlayersController < ApplicationController
     def show
       @sport = Sport.find(params[:sport_id])
       @player = Player.find(params[:id])
